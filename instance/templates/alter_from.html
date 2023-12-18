@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Альтернативная форма</title>
+    <style>
+        body {
+            position: relative;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .button-container {
+            position: absolute;
+            top: 50px; /* Регулируйте значение для желаемого отступа сверху */
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px; /* Увеличенное расстояние между кнопками */
+        }
+        .button:last-child {
+            margin-right: 0; /* Убираем правый отступ для последней кнопки */
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .table-container {
+            margin-top: 20px; /* Отступ сверху для таблицы */
+            display: none; /* Скрываем таблицы по умолчанию */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="button" id="lichsostav-button">Личный состав</button>
+        <button class="button" id="uchastki-button">Участки</button>
+        <button class="button" id="professions-button">Профессии</button>
+    </div>
+
+    <div class="table-container" id="lichsostav-table">
+        <h3>Личный состав</h3>
+        <table>
+            <tr>
+                <th>Number Cex</th>
+                <th>Number Uchastka</th>
+                <th>Code</th>
+                <th>Razryad</th>
+                <th>Sem Poloz</th>
+                <th>Familia</th>
+            </tr>
+            {% for row in lichsostav_data %}
+            <tr>
+                <td>{{ row.number_cex }}</td>
+                <td>{{ row.number_uchastka }}</td>
+                <td>{{ row.code }}</td>
+                <td>{{ row.razryad }}</td>
+                <td>{{ row.sem_poloz }}</td>
+                <td>{{ row.familia }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="table-container" id="uchastki-table">
+        <h3>Участки</h3>
+        <table>
+            <tr>
+                <th>Number Cex</th>
+                <th>Number Uchastka</th>
+                <th>Name</th>
+                <th>Tab Number</th>
+            </tr>
+            {% for row in uchastki_data %}
+            <tr>
+                <td>{{ row.number_cex }}</td>
+                <td>{{ row.number_uchastka }}</td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.tab_number }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    <div class="table-container" id="professions-table">
+        <h3>Профессии</h3>
+        <table>
+            <tr>
+                <th>Code</th>
+                <th>Name Prof</th>
+            </tr>
+            {% for row in professions_data %}
+            <tr>
+                <td>{{ row.code_id }}</td>
+                <td>{{ row.name_prof }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script>
+        document.getElementById("lichsostav-button").addEventListener("click", function() {
+            document.getElementById("lichsostav-table").style.display = "block";
+            document.getElementById("uchastki-table").style.display = "none";
+            document.getElementById("professions-table").style.display = "none";
+        });
+
+        document.getElementById("uchastki-button").addEventListener("click", function() {
+            document.getElementById("lichsostav-table").style.display = "none";
+            document.getElementById("uchastki-table").style.display = "block";
+            document.getElementById("professions-table").style.display = "none";
+        });
+
+        document.getElementById("professions-button").addEventListener("click", function() {
+            document.getElementById("lichsostav-table").style.display = "none";
+            document.getElementById("uchastki-table").style.display = "none";
+            document.getElementById("professions-table").style.display = "block";
+        });
+    </script>
+</body>
+</html>

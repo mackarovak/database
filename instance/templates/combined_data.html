@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <style>
+        /* Стили для визуализации таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .update-form {
+            margin-top: 20px;
+        }
+        .update-form input {
+            margin-right: 10px;
+        }
+        .update-form button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Соединенные данные</h1>
+    <!-- Таблица для отображения данных из представления CombinedData -->
+    <table>
+        <thead>
+            <tr>
+                <th>Код</th>
+                <th>Номер цеха</th>
+                <th>Номер участка</th>
+                <th>Разряд</th>
+                <th>Семейное положение</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Табельный номер</th>
+                <th>Профессия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in combined_data %}
+            <tr>
+                <td>{{ data.code }}</td>
+                <td>{{ data.number_cex }}</td>
+                <td>{{ data.number_uchastka }}</td>
+                <td>{{ data.razryad }}</td>
+                <td>{{ data.sem_poloz }}</td>
+                <td>{{ data.familia }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.tab_number }}</td>
+                <td>{{ data.name_prof }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

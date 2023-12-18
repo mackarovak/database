@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My App</title>
+    <style>
+        /* Стили для визуализации таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .update-form {
+            margin-top: 20px;
+        }
+        .update-form input {
+            margin-right: 10px;
+        }
+        .update-form button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Результаты запроса</h2>
+    <table>
+        <thead>
+          <tr>
+            <th>Номер цеха</th>
+            <th>Фамилия</th>
+            <th>Название профессии</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results_opr_razryad %}
+            <tr>
+              <td>{{ result.number_cex }}</td>
+              <td>{{ result.familia }}</td>
+              <td>{{ result.name_prof }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</body>
+</html>

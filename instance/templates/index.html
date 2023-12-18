@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Клиентская часть</title>
+    <style>
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <style>
+        ul {
+          list-style-type: disc;
+          margin-left: 20px;
+        }
+        li {
+          margin-bottom: 5px;
+        }
+      </style>
+    <style>
+        /* Стили для визуализации таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        .update-form {
+            margin-top: 20px;
+        }
+        .update-form input {
+            margin-right: 10px;
+        }
+        .update-form button {
+            margin-top: 10px;
+        }
+        /* Стили для позиционирования кнопки */
+        .button-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        /* Стили для стилизованной кнопки */
+        .button-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <a href="/combined_data">Соединенные данные</a>
+        <a href="/procedure">Процедура</a>
+        <a href="/alter_from">Альтернативная форма</a>
+    </div>
+    <h1>Участки</h1>
+    <!-- Таблица для отображения данных из таблицы Uchastki -->
+    <table>
+        <thead>
+            <tr>
+                <th>number_cex</th>
+                <th>number_uchastka</th>
+                <th>name</th>
+                <th>tab_number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in uchastki %}
+            <tr>
+                <td>{{ item.number_cex }}</td>
+                <td>{{ item.number_uchastka }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.tab_number }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Личный состав</h1>
+    <!-- Таблица для отображения данных из таблицы Lichsostav -->
+    <table>
+        <thead>
+            <tr>
+                <th>table_id</th>
+                <th>number_cex</th>
+                <th>number_uchastka</th>
+                <th>code</th>
+                <th>razryad</th>
+                <th>sem_poloz</th>
+                <th>familia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in lichsostav %}
+            <tr>
+                <td>{{ item.table_id }}</td>
+                <td>{{ item.number_cex }}</td>
+                <td>{{ item.number_uchastka }}</td>
+                <td>{{ item.code }}</td>
+                <td>{{ item.razryad }}</td>
+                <td>{{ item.sem_poloz }}</td>
+                <td>{{ item.familia }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Профессии</h1>
+    <!-- Таблица для отображения данных из таблицы Professions -->
+    <table>
+        <thead>
+            <tr>
+                <th>code_id</th>
+                <th>name_prof</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in professions %}
+            <tr>
+                <td>{{ item.code_id }}</td>
+                <td>{{ item.name_prof }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="update-form">
+        <h2>Изменение данных таблицы участков</h2>
+        <form action="/update_uchastki" method="POST">
+            <input type="text" name="number_cex" placeholder="Номер цеха">
+            <input type="text" name="number_uchastka" placeholder="Номер участка">
+            <input type="text" name="name" placeholder="Название">
+            <input type="text" name="tab_number" placeholder="Табельный номер">
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+    <div class="update-form">
+        <h2>Изменение данных таблицы профессий</h2>
+        <form action="/update_professions" method="POST">
+            <input type="text" name="code_id" placeholder="Код профессии">
+            <input type="text" name="name_prof" placeholder="Наименование профессии">
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+
+    <div class="update-form">
+        <h2>Изменение данных таблицы личного состава</h2>
+        <form action="/update_lichsostav" method="POST">
+            <input type="text" name="table_id" placeholder="Табельный номер рабочего">
+            <input type="text" name="number_cex" placeholder="Номер цеха">
+            <input type="text" name="number_uchastka" placeholder="Номер участка">
+            <input type="text" name="code" placeholder="Код профессии">
+            <input type="text" name="razryad" placeholder="Квалификационный разряд рабочего">
+            <input type="text" name="sem_poloz" placeholder="Семейное положение">
+            <input type="text" name="familia" placeholder="Фамилия с инициалами">
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+    <h2>Задание 2. SQL запрос с группировкой</h2>
+    <table>
+        <tr>
+            <th>ФИО</th>
+            <th>Наименование профессии</th>
+            <th>Разряд</th>
+            <th>Количество рабочих этой же профессии на этом участке этого цеха</th>
+            <th>Средний разряд рабочих данной профессии на всём предприятии</th>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td>{{ result['ФИО'] }}</td>
+                <td>{{ result['Наименование профессии'] }}</td>
+                <td>{{ result['Разряд'] }}</td>
+                <td>{{ result['Количество рабочих этой же профессии на этом участке этого цеха'] }}</td>
+                <td>{{ result['Средний разряд рабочих данной профессии на всём предприятии']|round(1) }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h2>Задание 1. SQL запрос</h2>
+    <div class="button-row">
+        <form action="/razryad" method="GET">
+            <button class="button" type="submit">SQL запрос</button>
+            <button class="button" type="submit">ORM</button>
+        </form>
+    </div>
+    <h2>Задание 3. Запрос с квантором</h2>
+    <ul>
+    {% for item in cvantor_res %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+    <h2>Задание 3. Запрос с помощью record-ориентированных средств</h2>
+    <ul>
+    {% for profession in record_res %}
+        <li>{{ profession.name_prof }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

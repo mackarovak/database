@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Warehouse App</title>
+</head>
+<body>
+    <h1>Welcome to Warehouse App</h1>
+    
+    <h2>All Materials</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        {% for material in all_materials %}
+        <tr>
+            <td>{{ material.id }}</td>
+            <td>{{ material.name }}</td>
+            <td>{{ material.price }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <h2>All Warehouses</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Material ID</th>
+            <th>Quantity</th>
+        </tr>
+        {% for warehouse in all_warehouses %}
+        <tr>
+            <td>{{ warehouse.id }}</td>
+            <td>{{ warehouse.material_id }}</td>
+            <td>{{ warehouse.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
